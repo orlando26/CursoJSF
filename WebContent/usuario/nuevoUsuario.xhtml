@@ -1,18 +1,83 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:o="http://omnifaces.org/ui"
-      xmlns:of="http://omnifaces.org/functions"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
 
 <h:head>
 
-</h:head> 
-<body> 
+</h:head>
+<body>
 	<h:form id="form">
-		<p:growl id="growlMessage" widgetVar="wdtGrowlMensaje" sticky="true" autoUpdate="true"></p:growl>
+		
+		<p:growl id="growlMessage" widgetVar="wdtGrowlMensaje" sticky="true"
+			autoUpdate="true"></p:growl>
+
+		<h2>Alta Usuario</h2>
+
+		<p:outputPanel id="panelPersonal">
+			<h:panelGrid columns="5">
+				<h:outputText value="Nombre: " for="txtNombre"></h:outputText>
+				<p:inputText id="txtNombre" required="true" maxlength="100" value="#{usuarioNuevo.usuario.strNombre}">
+					 <o:validator validatorId="javax.faces.RegularExpression" pattern="#{validadorView.validaCadena1.strExpresion}" 
+					 			  message="#{validadorView.validaCadena1.strMensaje}" />
+				</p:inputText>
+				<div></div>
+				<h:outputText value="Apellido paterno: " for="txtPaterno"></h:outputText>
+				<p:inputText id="txtPaterno" required="true" maxlength="100" value="#{usuarioNuevo.usuario.strPaterno}">
+					<o:validator validatorId="javax.faces.RegularExpression" pattern="#{validadorView.validaCadena1.strExpresion}" 
+					 			  message="#{validadorView.validaCadena1.strMensaje}" />
+				</p:inputText>
+
+
+				<h:outputText value="Apellido Materno: " for="txtMaterno"></h:outputText>
+				<p:inputText id="txtMaterno" required="true" maxlength="100" value="#{usuarioNuevo.usuario.strMaterno}">
+					<o:validator validatorId="javax.faces.RegularExpression" pattern="#{validadorView.validaCadena1.strExpresion}" 
+					 			  message="#{validadorView.validaCadena1.strMensaje}" />
+				</p:inputText>
+				<div></div>
+				<h:outputText value="Fecha de nacimiento: " for="calFechaNacimiento"></h:outputText>
+				<p:calendar id="calFechaNacimiento" required="true" maxlength="10"
+					pattern="dd/MM/yyyy" navigator="true" mask="true" value="#{usuarioNuevo.usuario.datFechaNacimiento}"/>
+					
+				<h:outputText value="Usuario: " for="txtUsuario"></h:outputText>
+				<p:inputText id="txtUsuario" required="true" maxlength="20" value="#{usuarioNuevo.usuario.strUsuario}">
+					<o:validator validatorId="javax.faces.RegularExpression" pattern="#{validadorView.validaCadena2.strExpresion}" 
+					 			  message="#{validadorView.validaCadena2.strMensaje}" />
+				</p:inputText>
+				<div></div>
+				<h:outputText value="R.F.C: " for="txtRfc"></h:outputText>
+				<p:inputText id="txtRfc" required="true" maxlength="13" value="#{usuarioNuevo.usuario.strRfc}">
+					<o:validator validatorId="javax.faces.RegularExpression" pattern="#{validadorView.validaRFCFisica.strExpresion}" 
+					 			  message="#{validadorView.validaRFCFisica.strMensaje}" />
+				</p:inputText>
+				
+				<h:outputText value="Correo " for="txtCorreo"></h:outputText>
+				<p:inputText id="txtCorreo" required="true" maxlength="100" value="#{usuarioNuevo.usuario.strCorreo}">
+					<o:validator validatorId="javax.faces.RegularExpression" pattern="#{validadorView.validaCorreo.strExpresion}" 
+					 			  message="#{validadorView.validaCorreo.strMensaje}" />
+				</p:inputText>
+				<div></div>
+				<h:outputText value="Password: " for="txtPassword"></h:outputText>
+				<p:password id="txtPassword" required="true" maxlength="100" 
+							feedback="true" goodLabel="Buena"
+							promptLabel="Inserte Contraseña" 
+							strongLabel="Fuerte" weakLabel="Debil"/>
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2" cellpadding = "10" cellspacing = "2">
+				<p:commandButton id="btnGuardar" value="Guardar" action="#{usuarioNuevo.btnGuardar()}"></p:commandButton>
+				<p:commandButton id="btnRegresar" value="Regresar"></p:commandButton>
+				
+			</h:panelGrid> 
+
+
+		</p:outputPanel>
+
+
+
 	</h:form>
-</body> 
+</body>
 </html>
