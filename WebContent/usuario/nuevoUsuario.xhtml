@@ -11,70 +11,136 @@
 </h:head>
 <body>
 	<h:form id="form">
-		
+
 		<p:growl id="growlMessage" widgetVar="wdtGrowlMensaje" sticky="true"
 			autoUpdate="true"></p:growl>
 
 		<h2>Alta Usuario</h2>
 
 		<p:outputPanel id="panelPersonal">
-			<h:panelGrid columns="5">
-				<h:outputText value="Nombre: " for="txtNombre"></h:outputText>
-				<p:inputText id="txtNombre" required="true" maxlength="100" value="#{usuarioNuevo.usuario.strNombre}">
-					 <o:validator validatorId="javax.faces.RegularExpression" pattern="#{validadorView.validaCadena1.strExpresion}" 
-					 			  message="#{validadorView.validaCadena1.strMensaje}" />
+			<h:panelGrid columns="5" cellpadding="10" cellspacing="4">
+				<p:outputLabel for="txtNombre" value="Nombre: " ></p:outputLabel>
+				<p:inputText id="txtNombre" required="true" maxlength="100"
+					value="#{usuarioNuevo.usuario.strNombre}">
+					<o:validator validatorId="javax.faces.RegularExpression"
+						pattern="#{validadorView.validaCadena1.strExpresion}"
+						message="#{validadorView.validaCadena1.strMensaje}" />
 				</p:inputText>
 				<div></div>
-				<h:outputText value="Apellido paterno: " for="txtPaterno"></h:outputText>
-				<p:inputText id="txtPaterno" required="true" maxlength="100" value="#{usuarioNuevo.usuario.strPaterno}">
-					<o:validator validatorId="javax.faces.RegularExpression" pattern="#{validadorView.validaCadena1.strExpresion}" 
-					 			  message="#{validadorView.validaCadena1.strMensaje}" />
+				<p:outputLabel value="Apellido paterno: " for="txtPaterno"></p:outputLabel>
+				<p:inputText id="txtPaterno" required="true" maxlength="100"
+					value="#{usuarioNuevo.usuario.strPaterno}">
+					<o:validator validatorId="javax.faces.RegularExpression"
+						pattern="#{validadorView.validaCadena1.strExpresion}"
+						message="#{validadorView.validaCadena1.strMensaje}" />
 				</p:inputText>
 
 
-				<h:outputText value="Apellido Materno: " for="txtMaterno"></h:outputText>
-				<p:inputText id="txtMaterno" required="true" maxlength="100" value="#{usuarioNuevo.usuario.strMaterno}">
-					<o:validator validatorId="javax.faces.RegularExpression" pattern="#{validadorView.validaCadena1.strExpresion}" 
-					 			  message="#{validadorView.validaCadena1.strMensaje}" />
+				<p:outputLabel value="Apellido Materno: " for="txtMaterno"></p:outputLabel>
+				<p:inputText id="txtMaterno" required="true" maxlength="100"
+					value="#{usuarioNuevo.usuario.strMaterno}">
+					<o:validator validatorId="javax.faces.RegularExpression"
+						pattern="#{validadorView.validaCadena1.strExpresion}"
+						message="#{validadorView.validaCadena1.strMensaje}" />
 				</p:inputText>
 				<div></div>
-				<h:outputText value="Fecha de nacimiento: " for="calFechaNacimiento"></h:outputText>
+				<p:outputLabel value="Fecha de nacimiento: " for="calFechaNacimiento"></p:outputLabel>
 				<p:calendar id="calFechaNacimiento" required="true" maxlength="10"
-					pattern="dd/MM/yyyy" navigator="true" mask="true" value="#{usuarioNuevo.usuario.datFechaNacimiento}"/>
-					
-				<h:outputText value="Usuario: " for="txtUsuario"></h:outputText>
-				<p:inputText id="txtUsuario" required="true" maxlength="20" value="#{usuarioNuevo.usuario.strUsuario}">
-					<o:validator validatorId="javax.faces.RegularExpression" pattern="#{validadorView.validaCadena2.strExpresion}" 
-					 			  message="#{validadorView.validaCadena2.strMensaje}" />
+					pattern="dd/MM/yyyy" navigator="true" mask="true"
+					value="#{usuarioNuevo.usuario.datFechaNacimiento}" />
+
+				<p:outputLabel value="Usuario: " for="txtUsuario"></p:outputLabel>
+				<p:inputText id="txtUsuario" required="true" maxlength="20"
+					value="#{usuarioNuevo.usuario.strUsuario}">
+					<o:validator validatorId="javax.faces.RegularExpression"
+						pattern="#{validadorView.validaCadena2.strExpresion}"
+						message="#{validadorView.validaCadena2.strMensaje}" />
 				</p:inputText>
 				<div></div>
-				<h:outputText value="R.F.C: " for="txtRfc"></h:outputText>
-				<p:inputText id="txtRfc" required="true" maxlength="13" value="#{usuarioNuevo.usuario.strRfc}">
-					<o:validator validatorId="javax.faces.RegularExpression" pattern="#{validadorView.validaRFCFisica.strExpresion}" 
-					 			  message="#{validadorView.validaRFCFisica.strMensaje}" />
+				<p:outputLabel value="R.F.C: " for="txtRfc"></p:outputLabel>
+				<p:inputText id="txtRfc" required="true" maxlength="13"
+					value="#{usuarioNuevo.usuario.strRfc}">
+					<o:validator validatorId="javax.faces.RegularExpression"
+						pattern="#{validadorView.validaRFCFisica.strExpresion}"
+						message="#{validadorView.validaRFCFisica.strMensaje}" />
 				</p:inputText>
-				
-				<h:outputText value="Correo " for="txtCorreo"></h:outputText>
-				<p:inputText id="txtCorreo" required="true" maxlength="100" value="#{usuarioNuevo.usuario.strCorreo}">
-					<o:validator validatorId="javax.faces.RegularExpression" pattern="#{validadorView.validaCorreo.strExpresion}" 
-					 			  message="#{validadorView.validaCorreo.strMensaje}" />
+
+				<p:outputLabel value="Correo " for="txtCorreo"></p:outputLabel>
+				<p:inputText id="txtCorreo" required="true" maxlength="100"
+					value="#{usuarioNuevo.usuario.strCorreo}">
+					<o:validator validatorId="javax.faces.RegularExpression"
+						pattern="#{validadorView.validaCorreo.strExpresion}"
+						message="#{validadorView.validaCorreo.strMensaje}" />
 				</p:inputText>
 				<div></div>
-				<h:outputText value="Password: " for="txtPassword"></h:outputText>
-				<p:password id="txtPassword" required="true" maxlength="100" 
-							feedback="true" goodLabel="Buena"
-							promptLabel="Inserte Contraseña" 
-							strongLabel="Fuerte" weakLabel="Debil"/>
+				<p:outputLabel value="Password: " for="txtPassword"></p:outputLabel>
+				<p:password id="txtPassword" required="true" maxlength="100"
+					feedback="true" goodLabel="Buena" promptLabel="Inserte Contraseña"
+					strongLabel="Fuerte" weakLabel="Debil" />
 			</h:panelGrid>
-			
-			<h:panelGrid columns="2" cellpadding = "10" cellspacing = "2">
-				<p:commandButton id="btnGuardar" value="Guardar" action="#{usuarioNuevo.btnGuardar()}"></p:commandButton>
-				<p:commandButton id="btnRegresar" value="Regresar"></p:commandButton>
-				
-			</h:panelGrid> 
-
-
 		</p:outputPanel>
+
+		<p:outputPanel id="panelDireccion">
+			<h:panelGrid columns="5" cellpadding="10" cellspacing="2">
+				<p:outputLabel for="txtCodigoPostal" value="Codigo Postal:"></p:outputLabel>
+				<p:inputText id="txtCodigoPostal" maxlength="7"
+					value="#{usuarioNuevo.usuario.strCodigoPostal}">
+					<o:validator validatorId="javax.faces.RegularExpression"
+						pattern="#{validadorView.validaNumerico.strExpresion}"
+						message="#{validadorView.validaNumerico.strMensaje}" />
+				</p:inputText>
+				<div></div>
+				<p:outputLabel for="cmbEstado" value="Estado:"></p:outputLabel>
+				<p:selectOneMenu id="cmbEstado"
+					value="#{usuarioNuevo.usuario.objMunicipio.objEstado.intId}">
+					<f:selectItem itemLabel="Seleccione..." itemValue=""
+						noSelectionOption="true" />
+					<f:selectItems value="#{usuarioNuevo.lstEstado}" var="objeto"
+						itemValue="#{objeto.intId}" itemLabel="#{objeto.strDescripcion}" />
+						
+					<p:ajax listener="#{usuarioNuevo.ajaxLlenaComboMunicipio()}" 
+							process="@this" update="cmbMunicipio"></p:ajax>
+				</p:selectOneMenu>
+
+
+				<p:outputLabel value="Municipio: " for="cmbMunicipio"></p:outputLabel>
+				<p:selectOneMenu id="cmbMunicipio"
+					value="#{usuarioNuevo.usuario.objMunicipio.intId}">
+					<f:selectItem itemLabel="Seleccione..." itemValue=""
+						noSelectionOption="true" />
+					<f:selectItems value="#{usuarioNuevo.lstMunicipio}" var="municipio"
+						itemValue="#{municipio.intId}"
+						itemLabel="#{municipio.strDescripcion}" />
+				</p:selectOneMenu>
+				<div></div>
+				<p:outputLabel value="Colonia: " for="txtColonia"></p:outputLabel>
+				<p:inputText id="txtColonia" required="true" maxlength="100"
+					value="#{usuarioNuevo.usuario.strColonia}">
+					<o:validator validatorId="javax.faces.RegularExpression"
+						pattern="#{validadorView.validaCalle.strExpresion}"
+						message="#{validadorView.validaCalle.strMensaje}" />
+				</p:inputText>
+
+
+
+				<p:outputLabel value="Calle: " for="txtCalle"></p:outputLabel>
+				<p:inputText id="txtCalle" required="true" maxlength="100"
+					value="#{usuarioNuevo.usuario.strPaterno}">
+					<o:validator validatorId="javax.faces.RegularExpression"
+						pattern="#{validadorView.validaCalle.strExpresion}"
+						message="#{validadorView.validaCalle.strMensaje}" />
+				</p:inputText>
+
+			</h:panelGrid>
+		</p:outputPanel>
+
+		<h:panelGrid columns="2" cellpadding="10" cellspacing="4">
+			<p:commandButton id="btnGuardar" value="Guardar"
+				action="#{usuarioNuevo.btnGuardar()}"></p:commandButton>
+			<p:commandButton id="btnRegresar" value="Regresar"></p:commandButton>
+
+		</h:panelGrid>
+
 
 
 
