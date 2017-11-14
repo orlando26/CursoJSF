@@ -16,6 +16,7 @@ public class Usuario {
 	private String strColonia;
 	private String strCalle;
 	private String strCodigoPostal;
+	private String strPassword;
 	private Municipio objMunicipio;
 	private Estatus objEstatus;
 	private Date datFechaModificacion;
@@ -28,6 +29,7 @@ public class Usuario {
 		this.strPaterno = "";
 		this.strMaterno = "";
 		this.strRfc = "";
+		this.strPassword = "";
 		this.datFechaNacimiento = null;
 		this.strCorreo = "";
 		this.strColonia = "";
@@ -42,7 +44,7 @@ public class Usuario {
 			String strPaterno, String strMaterno, String strRfc,
 			Date datFechaNacimiento, String strCorreo, String strColonia,
 			String strCalle, String strCodigoPostal, Municipio objMunicipio,
-			Estatus objEstatus, Date datFechaModificacion) {
+			Estatus objEstatus, Date datFechaModificacion, String strPassword) {
 		super();
 		this.intId = intId;
 		this.strUsuario = strUsuario;
@@ -58,6 +60,7 @@ public class Usuario {
 		this.objMunicipio = objMunicipio;
 		this.objEstatus = objEstatus;
 		this.datFechaModificacion = datFechaModificacion;
+		this.strPassword = strPassword;
 	}
 	
 	public int getIntId() {
@@ -143,6 +146,14 @@ public class Usuario {
 	}
 	public void setDatFechaModificacion(Date datFechaModificacion) {
 		this.datFechaModificacion = datFechaModificacion;
+	}
+
+	public String getStrPassword() {
+		return strPassword;
+	}
+
+	public void setStrPassword(String strPassword) {
+		this.strPassword = strPassword;
 	}
 	
 	
