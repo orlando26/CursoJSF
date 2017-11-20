@@ -38,7 +38,7 @@ public class ValidadorView {
 		
 		//Letras, letras espaciales, espacio y punto
 		validaCadena1 = new ExpresionRegular();
-		validaCadena1.setStrExpresion("^[A-Za-zá-ú�?-Ú .]*$");
+		validaCadena1.setStrExpresion("^[A-Za-zá-úÁ-Ú .]*$");
 		validaCadena1.setStrMensaje("{0}: Campo solo puede contener letras, espacio en blanco y punto");
 		
 		//Letras, numeros y punto
@@ -48,22 +48,22 @@ public class ValidadorView {
 		
 		//Letras, letras especiales, espacio, punto, coma
 		validaCadena3 = new ExpresionRegular();
-		validaCadena3.setStrExpresion("^[A-Za-zá-ú�?-Ú .,]*$");
+		validaCadena3.setStrExpresion("^[A-Za-zá-úÁ-Ú .,]*$");
 		validaCadena3.setStrMensaje("{0}: Campo solo puede contener letras, espacio en blanco coma y punto");
 		
 		//Letras, letras espaciales, numeros, espacio y punto
 		validaCadena4 = new ExpresionRegular();
-		validaCadena4.setStrExpresion("^[A-Za-zá-ú�?-Ú0-9 .]*$");
+		validaCadena4.setStrExpresion("^[A-Za-zá-úÁ-Ú0-9 .]*$");
 		validaCadena4.setStrMensaje("{0}: Campo solo puede contener letras, numeros, espacio en blanco y punto");
 		
 		//Letras, letras espaciales, espacio, punto y guion medio
 		validaCadena5 = new ExpresionRegular();
-		validaCadena5.setStrExpresion("^[A-Za-zá-ú�?-Ú .-]*$");
+		validaCadena5.setStrExpresion("^[A-Za-zá-úÁ-Ú .-]*$");
 		validaCadena5.setStrMensaje("{0}: Campo solo puede contener letras, numeros, punto y guion medio (-)");	
 		
 		//Valida calle
 		validaCalle = new ExpresionRegular();
-		validaCalle.setStrExpresion("^[A-Za-zá-ú�?-Ú0-9 .,-/]*$");
+		validaCalle.setStrExpresion("^[A-Za-zá-úÁ-Ú0-9 .,-/]*$");
 		validaCalle.setStrMensaje("{0}: Campo solo puede contener letras, numeros, espacio en blanco, coma, punto, guion y diagonal");
 		
 		//Solo letras, sin letras especiales
@@ -91,7 +91,7 @@ public class ValidadorView {
 		
 		//Valida letras, letras especiales, espacio, coma, punto, guion y /
 		validaNumeroCaracter3 = new ExpresionRegular();
-		validaNumeroCaracter3.setStrExpresion("^[A-Za-zá-ú�?-Ú0-9 .,-/]*$");
+		validaNumeroCaracter3.setStrExpresion("^[A-Za-zá-úÁ-Ú0-9 .,-/]*$");
 		validaNumeroCaracter3.setStrMensaje("{0}: Campo solo puede contener números, letras, espacio, punto, guion y /");
 		
 		//Solo letras y numeros, de longitud 13

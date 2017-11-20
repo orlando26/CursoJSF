@@ -21,7 +21,7 @@ import com.proyecto.curso.view.utileria.GeneralView;
 
 @ManagedBean
 @ViewScoped
-public class UsuarioNuevo extends GeneralView implements Serializable{
+public class UsuarioDetalleView extends GeneralView implements Serializable{
 	
 	/**
 	 * 
@@ -45,16 +45,21 @@ public class UsuarioNuevo extends GeneralView implements Serializable{
 	
 	@PostConstruct
 	public void init(){
-		usuario = new Usuario();
+		
+		int intIdUsuario = (int)obtenerFlash().get("usuarioSeleccionado"); 
+		
+		usuario = usuarioBS.obtenerUsuarioDetalle(intIdUsuario);
+		
 		lstEstado = sepomexBS.obtenerEstados(new Estado());
-		lstMunicipio = new ArrayList<Municipio>();
+		
+		lstMunicipio = sepomexBS.obtenerMunicipios(usuario.getObjMunicipio());
 	}
 	
 	/** Metodos */
-	public void btnGuardar() {
+	public String btnModificar() {
 		System.out.println("Se presiono boton");
 		String strPagina = "";
-		Respuesta objRespuesta = usuarioBS.insertUsuario(usuario);
+		Respuesta objRespuesta = usuarioBS.actualizaRespuesta(usuario);
 		
 		if(objRespuesta.getIntId() == RespuestaENUM.EXITO.getIdCodigo()){
 			mensajes(objRespuesta.getStrMensaje(), FacesMessage.SEVERITY_INFO);
@@ -63,7 +68,7 @@ public class UsuarioNuevo extends GeneralView implements Serializable{
 			mensajes(objRespuesta.getStrMensaje(), FacesMessage.SEVERITY_ERROR);
 		}
 		
-		redirect(strPagina);
+		return strPagina;
 	}
 	
 	public void ajaxLlenaComboMunicipio(){

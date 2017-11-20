@@ -1,11 +1,120 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
 
-<h:head></h:head> 
-<body> 
-
-</body> 
+<h:head></h:head>
+<body>
+<h:form id="Form">
+	<p:growl id="growlMensaje" widgetVar="wdtGrowlMensaje" sticky="true" autoUpdate="true"></p:growl>
+	
+	<table>
+		<tr>
+			<td>
+				<h2>Consulta de usuarios</h2>
+			</td>
+		</tr>
+	</table>
+	
+	<table>
+		<tr>
+			<td>
+				<p:outputLabel value="Nombre: "></p:outputLabel>
+			</td>
+			<td> <p:inputText value="#{usuarioBusquedaView.objUsuario.strNombre}" maxlength="100"></p:inputText> </td>
+			<td></td>
+			<td> <p:outputLabel value="Paterno: "></p:outputLabel> </td>
+			<td> <p:inputText value="#{usuarioBusquedaView.objUsuario.strPaterno}" maxlength="100"></p:inputText> </td>
+		</tr>
+		
+		<tr>
+			<td> <p:outputLabel value="Materno: "></p:outputLabel></td>
+			<td> <p:inputText value="#{usuarioBusquedaView.objUsuario.strMaterno}" maxlength="100"></p:inputText> </td>
+			<td>  </td>
+			<td> <p:outputLabel value="RFC "></p:outputLabel> </td>
+			<td> <p:inputText value="#{usuarioBusquedaView.objUsuario.strRfc}" maxlength="13"></p:inputText> </td>
+		</tr>
+		
+		<tr>
+			<td> <p:outputLabel value="Usuario: "></p:outputLabel> </td>
+			<td> <p:inputText value="#{usuarioBusquedaView.objUsuario.strUsuario}" maxlength="100"></p:inputText> </td>
+			<td></td>
+			<td> <p:outputLabel value="Correo: "></p:outputLabel> </td>
+			<td> <p:inputText value="#{usuarioBusquedaView.objUsuario.strCorreo}" maxlength="100"></p:inputText> </td>
+		</tr>
+		
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		
+		<tr>
+			<td> <p:outputLabel value="Estado: "></p:outputLabel> </td>
+			<td>
+				<p:selectOneMenu value="#{usuarioBusquedaView.objUsuario.objMunicipio.objEstado.intId}">
+					<f:selectItem itemValue="0" itemLabel="Todos" />
+					<f:selectItems value="#{usuarioBusquedaView.lstEstados}" var="estado" itemValue="#{estado.intId}" itemLabel="#{estado.strDescripcion}" />
+					
+					<p:ajax listener="#{usuarioBusquedaView.ajaxLlenaComboMunicipio()}" update="comboMunicipio"></p:ajax>
+				</p:selectOneMenu>
+			</td>
+			<td></td>
+			<td> <p:outputLabel value="Municipio: "></p:outputLabel> </td>
+			<td>
+				<p:selectOneMenu id="comboMunicipio" value="#{usuarioBusquedaView.objUsuario.objMunicipio.intId}">
+					<f:selectItem itemValue="0" itemLabel="Todos" />
+					<f:selectItems value="#{usuarioBusquedaView.lstMunicipios}" var="municipio" itemValue="#{municipio.intId}" itemLabel="#{municipio.strDescripcion}" />
+				</p:selectOneMenu>
+			</td>
+		</tr>
+		
+		<tr>
+			<td></td>
+			<td><p:commandButton value="buscar" action="#{usuarioBusquedaView.botonBuscar()}" update="tblUsuarios"></p:commandButton> </td>
+			<td></td>
+			<td><p:commandButton value="nuevo" action="#{usuarioBusquedaView.botonNuevo()}" ajax="false"></p:commandButton> </td>
+			<td></td>
+		</tr>
+		
+	</table>
+	
+	<p:dataTable id="tblUsuarios" value="#{usuarioBusquedaView.lstUsuario}" var="usuario">
+		<p:column headerText="Id" width="10%">
+			<h:outputText value="#{usuario.intId}" />
+		</p:column>
+		
+		<p:column headerText="Nombre" width="20%">
+			<h:outputText value="#{usuario.strNombre}" />
+		</p:column>
+		
+		<p:column headerText="Paterno" width="20%">
+			<h:outputText value="#{usuario.strPaterno}" />
+		</p:column>
+		
+		<p:column headerText="Materno" width="20%">
+			<h:outputText value="#{usuario.strMaterno}" />
+		</p:column>
+		
+		<p:column headerText="Estatus" width="10%">
+			<h:outputText value="#{usuario.objEstatus.strDescripcion}" />
+		</p:column>
+		
+		<p:column headerText="Fecha de modificación" width="10%">
+			<h:outputText value="#{usuario.datFechaModificacion}" />
+		</p:column>
+		
+		<p:column headerText="Editar" width="10%">
+			<p:commandButton action="#{usuarioBusquedaView.botonEditar(usuario.intId)}" title="Editar Detalle" icon="ui-icon.pencil"></p:commandButton>
+		</p:column>
+		
+	</p:dataTable>
+	
+</h:form>
+</body>
 </html>

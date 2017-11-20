@@ -9,9 +9,11 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
+import org.springframework.stereotype.Repository;
 
 import com.proyecto.curso.dao.IUsuarioDAO;
 import com.proyecto.curso.dao.mapper.UsuarioRM;
@@ -20,21 +22,22 @@ import com.proyecto.curso.model.Usuario;
 
 import oracle.jdbc.internal.OracleTypes;
 
-
+@Repository
 public class UsuarioDAO implements IUsuarioDAO{
 	
-	private DataSource ds;
+	@Autowired
+	private DataSource dataSource;
 	
 	@Override
 	public Collection<Usuario> obtenerUsuarios(Usuario objUsuario, Date datFechaInicial, Date datFechaFinal, int intTipoConsulta){
-		SpConUsuario obj = new SpConUsuario(ds);
+		SpConUsuario obj = new SpConUsuario(dataSource);
 		Collection<Usuario> lst = obj.ejecutar(objUsuario, datFechaInicial, datFechaFinal, intTipoConsulta);
 		return lst;
 	}
 	
 	@Override
 	public Respuesta guardarUsuario(Usuario objUsuario){
-		SpInsertarUsuario obj = new SpInsertarUsuario(ds);
+		SpInsertarUsuario obj = new SpInsertarUsuario(dataSource);
 		Respuesta objRespuesta = obj.ejecutar(objUsuario);
 		return objRespuesta;
 	}
@@ -42,7 +45,7 @@ public class UsuarioDAO implements IUsuarioDAO{
 	@Override
 	public Respuesta editarUsuario(Usuario objUsuario) {
 		// TODO Auto-generated method stub
-		SpActualizaUsuario obj = new SpActualizaUsuario(ds);
+		SpActualizaUsuario obj = new SpActualizaUsuario(dataSource);
 		Respuesta objRespuesta = obj.ejecutar(objUsuario);
 		return objRespuesta;
 	}
@@ -58,19 +61,20 @@ public class UsuarioDAO implements IUsuarioDAO{
 			declareParameter(new SqlParameter("p_nombre", Types.VARCHAR));
 			declareParameter(new SqlParameter("p_paterno", Types.VARCHAR));
 			declareParameter(new SqlParameter("p_materno", Types.VARCHAR));
-			declareParameter(new SqlParameter("p_rfc", Types.VARCHAR));
+						
 			declareParameter(new SqlParameter("p_fecha_nacimiento", Types.DATE));
+			declareParameter(new SqlParameter("p_rfc", Types.VARCHAR));
 			declareParameter(new SqlParameter("p_correo", Types.VARCHAR));
-			declareParameter(new SqlParameter("p_colonia", Types.VARCHAR));
 			declareParameter(new SqlParameter("p_calle", Types.VARCHAR));
+			
 			declareParameter(new SqlParameter("p_codigo_postal", Types.VARCHAR));
-			declareParameter(new SqlParameter("p_municipio", Types.INTEGER));
+			declareParameter(new SqlParameter("p_colonia", Types.VARCHAR));		
+			declareParameter(new SqlParameter("p_id_municipio", Types.INTEGER));
 			declareParameter(new SqlParameter("p_password", Types.VARCHAR));
 			
-			declareParameter(new SqlParameter("p_out_idusuario", Types.VARCHAR));
-			declareParameter(new SqlParameter("p_out_codigo", Types.VARCHAR));
-			declareParameter(new SqlParameter("p_out_mensaje", Types.VARCHAR));
-			
+			declareParameter(new SqlOutParameter("p_out_idusuario", Types.INTEGER));
+			declareParameter(new SqlOutParameter("p_out_codigo", Types.INTEGER));
+			declareParameter(new SqlOutParameter("p_out_mensaje", Types.VARCHAR));
 			compile();
 		}
 		
@@ -81,12 +85,15 @@ public class UsuarioDAO implements IUsuarioDAO{
 			parameters.put("p_nombre", objUsuario.getStrNombre());
 			parameters.put("p_materno", objUsuario.getStrMaterno());
 			parameters.put("p_paterno", objUsuario.getStrPaterno());
-			parameters.put("p_rfc", objUsuario.getStrRfc());
+			
 			parameters.put("p_fecha_nacimiento", objUsuario.getDatFechaNacimiento());
+			parameters.put("p_rfc", objUsuario.getStrRfc());
 			parameters.put("p_correo", objUsuario.getStrCorreo());
 			parameters.put("p_calle", objUsuario.getStrCalle());
+			
 			parameters.put("p_codigo_postal", objUsuario.getStrCodigoPostal());
-			parameters.put("p_municipio", objUsuario.getObjMunicipio().getIntId());
+			parameters.put("p_colonia", objUsuario.getStrColonia());
+			parameters.put("p_id_municipio", objUsuario.getObjMunicipio().getIntId());
 			parameters.put("p_password", objUsuario.getStrPassword());
 			
 			Map<String, Object> resultado = execute(parameters);
@@ -115,17 +122,17 @@ public class UsuarioDAO implements IUsuarioDAO{
 			declareParameter(new SqlParameter("p_nombre", Types.VARCHAR));
 			declareParameter(new SqlParameter("p_paterno", Types.VARCHAR));
 			declareParameter(new SqlParameter("p_materno", Types.VARCHAR));
-			declareParameter(new SqlParameter("p_rfc", Types.VARCHAR));
 			declareParameter(new SqlParameter("p_fecha_nacimiento", Types.DATE));
+			declareParameter(new SqlParameter("p_rfc", Types.VARCHAR));
 			declareParameter(new SqlParameter("p_correo", Types.VARCHAR));
-			declareParameter(new SqlParameter("p_colonia", Types.VARCHAR));
 			declareParameter(new SqlParameter("p_calle", Types.VARCHAR));
 			declareParameter(new SqlParameter("p_codigo_postal", Types.VARCHAR));
+			declareParameter(new SqlParameter("p_colonia", Types.VARCHAR));
 			declareParameter(new SqlParameter("p_municipio", Types.INTEGER));
 			declareParameter(new SqlParameter("p_id_estatus", Types.INTEGER));
 			declareParameter(new SqlParameter("p_password", Types.VARCHAR));
 			
-			declareParameter(new SqlParameter("p_out_codigo", Types.VARCHAR));
+			declareParameter(new SqlParameter("p_out_codigo", Types.INTEGER));
 			declareParameter(new SqlParameter("p_out_mensaje", Types.VARCHAR));
 			
 			compile();
@@ -139,12 +146,15 @@ public class UsuarioDAO implements IUsuarioDAO{
 			parameters.put("p_nombre", objUsuario.getStrNombre());
 			parameters.put("p_materno", objUsuario.getStrMaterno());
 			parameters.put("p_paterno", objUsuario.getStrPaterno());
-			parameters.put("p_rfc", objUsuario.getStrRfc());
 			parameters.put("p_fecha_nacimiento", objUsuario.getDatFechaNacimiento());
+			
+			parameters.put("p_rfc", objUsuario.getStrRfc());
 			parameters.put("p_correo", objUsuario.getStrCorreo());
 			parameters.put("p_calle", objUsuario.getStrCalle());
 			parameters.put("p_codigo_postal", objUsuario.getStrCodigoPostal());
+			parameters.put("p_colonia", objUsuario.getStrColonia());
 			parameters.put("p_municipio", objUsuario.getObjMunicipio().getIntId());
+			
 			parameters.put("p_id_estatus", objUsuario.getObjEstatus());
 			parameters.put("p_password", objUsuario.getStrPassword());
 			
@@ -164,12 +174,12 @@ public class UsuarioDAO implements IUsuarioDAO{
 	
 	/**Stored Procedure Consultar Usuario */
 	private final class SpConUsuario extends StoredProcedure{
-		private SpConUsuario(DataSource ds){
-			super(ds, "PCK_USUARIO.Obtener_Usuarios");
+		private SpConUsuario(DataSource dataSource){
+			super(dataSource, "PCK_USUARIO.Obtener_Usuarios");
 			
 			UsuarioRM rowMapper = new UsuarioRM();
 			
-			declareParameter(new SqlParameter("p_id_usuario", Types.BIGINT));
+			declareParameter(new SqlParameter("p_id_usuario", Types.INTEGER));
 			declareParameter(new SqlParameter("p_usuario", Types.VARCHAR));
 			declareParameter(new SqlParameter("p_nombre", Types.VARCHAR));
 			declareParameter(new SqlParameter("p_paterno", Types.VARCHAR));
@@ -179,7 +189,7 @@ public class UsuarioDAO implements IUsuarioDAO{
 			
 			declareParameter(new SqlParameter("p_id_municipio", Types.INTEGER));
 			declareParameter(new SqlParameter("p_id_estado", Types.INTEGER));
-			declareParameter(new SqlParameter("p_id_estatus", Types.VARCHAR));
+			declareParameter(new SqlParameter("p_id_estatus", Types.INTEGER));
 			
 			declareParameter(new SqlParameter("p_fecha_inicial", Types.DATE));
 			declareParameter(new SqlParameter("p_fecha_final", Types.DATE));
@@ -204,7 +214,7 @@ public class UsuarioDAO implements IUsuarioDAO{
 			parameters.put("p_rfc", objUsuario.getStrRfc());
 			parameters.put("p_id_estado", objUsuario.getObjMunicipio().getObjEstado().getIntId());
 			parameters.put("p_correo", objUsuario.getStrCorreo());
-			parameters.put("p_id_estatus", objUsuario.getObjEstatus());
+			parameters.put("p_id_estatus", objUsuario.getObjEstatus().getIntId());
 			parameters.put("p_id_municipio", objUsuario.getObjMunicipio().getIntId());
 			parameters.put("p_fecha_inicial", datFechaInicial);
 			parameters.put("p_fecha_final", datFechaFinal);
@@ -212,9 +222,9 @@ public class UsuarioDAO implements IUsuarioDAO{
 			
 			Map<String, Object> resultado = execute(parameters);
 			
-			
+			System.out.println(datFechaFinal);
 			Collection<Usuario> lstUsuarios = resultado.containsKey("p_out_cur_resultado")? (Collection<Usuario>)resultado.get("p_out_cur_resultado"): new ArrayList<Usuario>();
-			
+			System.out.println(lstUsuarios.isEmpty());
 			return lstUsuarios;																		
 			
 		}

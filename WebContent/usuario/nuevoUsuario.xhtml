@@ -74,7 +74,7 @@
 				</p:inputText>
 				<div></div>
 				<p:outputLabel value="Password: " for="txtPassword"></p:outputLabel>
-				<p:password id="txtPassword" required="true" maxlength="100"
+				<p:password id="txtPassword" required="true" maxlength="100" value="#{usuarioNuevo.usuario.strPassword}"
 					feedback="true" goodLabel="Buena" promptLabel="Inserte Contraseña"
 					strongLabel="Fuerte" weakLabel="Debil" />
 			</h:panelGrid>
@@ -125,7 +125,7 @@
 
 				<p:outputLabel value="Calle: " for="txtCalle"></p:outputLabel>
 				<p:inputText id="txtCalle" required="true" maxlength="100"
-					value="#{usuarioNuevo.usuario.strPaterno}">
+					value="#{usuarioNuevo.usuario.strCalle}">
 					<o:validator validatorId="javax.faces.RegularExpression"
 						pattern="#{validadorView.validaCalle.strExpresion}"
 						message="#{validadorView.validaCalle.strMensaje}" />
@@ -136,8 +136,8 @@
 
 		<h:panelGrid columns="2" cellpadding="10" cellspacing="4">
 			<p:commandButton id="btnGuardar" value="Guardar"
-				action="#{usuarioNuevo.btnGuardar()}"></p:commandButton>
-			<p:commandButton id="btnRegresar" value="Regresar"></p:commandButton>
+				action="#{usuarioNuevo.btnGuardar()}" ajax="false"></p:commandButton>
+			<p:commandButton id="btnRegresar" value="Regresar" action="#{usuarioNuevo.btnRegresar()}" ajax="false" immediate="true"></p:commandButton>
 
 		</h:panelGrid>
 

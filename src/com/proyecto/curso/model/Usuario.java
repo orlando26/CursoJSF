@@ -21,6 +21,25 @@ public class Usuario {
 	private Estatus objEstatus;
 	private Date datFechaModificacion;
 	
+	public Usuario(int intId) {
+		super();
+		this.intId = intId;
+		this.strUsuario = "";
+		this.strNombre = "";
+		this.strPaterno = "";
+		this.strMaterno = "";
+		this.strRfc = "";
+		this.strPassword = "";
+		this.datFechaNacimiento = null;
+		this.strCorreo = "";
+		this.strColonia = "";
+		this.strCalle = "";
+		this.strCodigoPostal = "";
+		this.objMunicipio = new Municipio();
+		this.objEstatus = new Estatus();
+		this.datFechaModificacion = null;
+	}
+	
 	public Usuario() {
 		super();
 		this.intId = 0;
